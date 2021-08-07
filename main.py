@@ -36,11 +36,11 @@ class Today_Tasks_Page(QWidget):
 class Task(QWidget):
     def __init__(self):
         super().__init__()
-        vbox=QVBoxLayout()
-        hbox=QHBoxLayout()
-        self.name=""
+        vbox = QVBoxLayout()
+        hbox = QHBoxLayout()
+        self.name = ""
         self.type = ""
-        self.shedle=[0,0,0,0,0,0]
+        self.shedle = [0, 0, 0, 0, 0, 0]
         self.nameLabel = QLabel(self.name)
         self.typeLabel = QLabel(self.type)
         self.shedleLabel = QLabel()
@@ -52,6 +52,7 @@ class Task(QWidget):
         hbox.addWidget(self.shedleLabel)
 
 
+# creating task widgets
 class New_Task_Button(QPushButton):
     def __init__(self):
         super().__init__()
@@ -62,6 +63,16 @@ class New_Task_Button(QPushButton):
         taskItem = QListWidgetItem()
         self.parent().findChild(QListWidget).addItem(taskItem)
         self.parent().findChild(QListWidget).setItemWidget(taskItem, task)
+
+
+class Task_Description(QTextEdit):
+    class set_label_button(QPushButton):
+        def __init__(self):
+            super().__init__()
+
+    def __init__(self):
+        super().__init__()
+
 
 
 class MainWindow(QWidget):
@@ -76,7 +87,7 @@ class MainWindow(QWidget):
         self.today_tasks_page = Today_Tasks_Page()
         all_tasks_list = QListWidget()
         self.tasks_pages = QTabWidget()
-        #setup today tasks page
+        # setup today tasks page
         self.tasks_pages.addTab(self.today_tasks_page, "Today")
         self.tasks_pages.addTab(all_tasks_list, "All Tasks")
         self.tasks_pages.tabBar().hide()
