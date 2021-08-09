@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
+from task_editor import *
 
 
 class ToolBar(QHBoxLayout):
@@ -26,10 +27,13 @@ class Today_Tasks_Page(QWidget):
         self.title = QLabel("Today")
         self.tasks_list_widget = QListWidget()
         self.newTaskButton = New_Task_Button()
+        self.taskEditor = task_editor()
+        self.taskEditor.hide()
 
         vbox.addWidget(self.title)
         vbox.addWidget(self.tasks_list_widget)
         vbox.addWidget(self.newTaskButton)
+        vbox.addWidget(self.taskEditor)
         self.setLayout(vbox)
 
 
@@ -56,13 +60,16 @@ class Task(QWidget):
 class New_Task_Button(QPushButton):
     def __init__(self):
         super().__init__()
-        self.clicked.connect(self.createTask)
+        self.clicked.connect(self.editTask)
 
-    def createTask(self):
-        task = Task()
-        taskItem = QListWidgetItem()
-        self.parent().findChild(QListWidget).addItem(taskItem)
-        self.parent().findChild(QListWidget).setItemWidget(taskItem, task)
+    def editTask(self):
+        self.hide()
+        self.parent().taskEditor.show()
+#    def createTask(self):
+#        task = Task()
+#        taskItem = QListWidgetItem()
+#        self.parent().findChild(QListWidget).addItem(taskItem)
+#        self.parent().findChild(QListWidget).setItemWidget(taskItem, task)
 
 
 class Task_Description(QTextEdit):
@@ -72,7 +79,6 @@ class Task_Description(QTextEdit):
 
     def __init__(self):
         super().__init__()
-
 
 
 class MainWindow(QWidget):
@@ -108,7 +114,8 @@ class MainWindow(QWidget):
         self.tasks_pages.setCurrentIndex(0)
 
 
-app = QApplication(sys.argv)
-mainWindow = MainWindow()
-mainWindow.show()
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    mainWindow = MainWindow()
+    mainWindow.show()
+    sys.exit(app.exec_())
