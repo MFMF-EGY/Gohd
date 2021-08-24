@@ -25,13 +25,13 @@ class Today_Tasks_Page(QWidget):
         super().__init__()
         vbox = QVBoxLayout()
         self.title = QLabel("Today")
-        self.tasks_list_widget = QListWidget()
+        self.tasksList = QListWidget()
         self.newTaskButton = New_Task_Button()
         self.taskEditor = task_editor()
         self.taskEditor.hide()
 
         vbox.addWidget(self.title)
-        vbox.addWidget(self.tasks_list_widget)
+        vbox.addWidget(self.tasksList)
         vbox.addWidget(self.newTaskButton)
         vbox.addWidget(self.taskEditor)
         self.setLayout(vbox)
@@ -55,21 +55,21 @@ class Task(QWidget):
         hbox.addWidget(self.typeLabel)
         hbox.addWidget(self.shedleLabel)
 
+    def setTaskName(self, name):
+        self.name = name
+        self.nameLabel.setText(name)
+
 
 # creating task widgets
 class New_Task_Button(QPushButton):
     def __init__(self):
         super().__init__()
         self.clicked.connect(self.editTask)
+        self.setText("New Task")
 
     def editTask(self):
         self.hide()
         self.parent().taskEditor.show()
-#    def createTask(self):
-#        task = Task()
-#        taskItem = QListWidgetItem()
-#        self.parent().findChild(QListWidget).addItem(taskItem)
-#        self.parent().findChild(QListWidget).setItemWidget(taskItem, task)
 
 
 class Task_Description(QTextEdit):

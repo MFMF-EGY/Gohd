@@ -4,6 +4,7 @@ import calendar
 from PyQt5.QtWidgets import QApplication, QWidget, QCalendarWidget
 from PyQt5.QtCore import QDate
 
+
 class CalendarDemo(QWidget):
 	global currentYear, currentMonth
 
